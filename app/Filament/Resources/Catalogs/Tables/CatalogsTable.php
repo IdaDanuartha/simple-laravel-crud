@@ -22,7 +22,7 @@ class CatalogsTable
                     ->money()
                     ->sortable(),
                 ImageColumn::make('image'),
-                TextColumn::make('category')
+                TextColumn::make('category.name')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
