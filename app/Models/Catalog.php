@@ -15,6 +15,11 @@ class Catalog extends Model
         'description',
         'price',
         'image',
-        'category',
+        'category_id',
     ];
+
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
