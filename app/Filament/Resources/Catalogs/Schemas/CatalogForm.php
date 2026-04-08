@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Catalogs\Schemas;
 
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -24,7 +25,8 @@ class CatalogForm
                     ->prefix('$'),
                 FileUpload::make('image')
                     ->image(),
-                TextInput::make('category')
+                Select::make('category_id')
+                    ->relationship('category', 'name')
                     ->required(),
             ]);
     }
