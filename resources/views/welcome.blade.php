@@ -121,7 +121,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('{{ asset('img/hero_background_1775705335157.png') }}');
+            background-image: url('{{ asset('img/hero_v2_1775707023463.png') }}');
             background-size: cover;
             background-position: center;
             z-index: 0;
@@ -487,77 +487,24 @@
         </div>
 
         <div class="product-grid">
-            
-            <!-- Product 1 -->
+            @foreach($catalogs as $catalog)
+            <!-- Product -->
             <div class="product-card">
-                <div class="badge">Hot</div>
                 <div class="product-image-container">
-                    <img src="{{ asset('img/product_smartwatch_1775705351092.png') }}" class="product-image" alt="Aura Smartwatch Pro">
+                    <img src="{{ asset($catalog->image) }}" class="product-image" alt="{{ $catalog->title }}">
                 </div>
                 <div class="product-info">
-                    <div class="product-category">Wearables</div>
-                    <div class="product-title">Aura Smartwatch Pro Series X</div>
+                    <div class="product-category">{{ $catalog->category->name ?? 'Uncategorized' }}</div>
+                    <div class="product-title">{{ $catalog->title }}</div>
                     <div class="product-price">
-                        $349.00
+                        ${{ number_format($catalog->price, 2) }}
                         <button class="add-to-cart">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                         </button>
                     </div>
                 </div>
             </div>
-
-            <!-- Product 2 -->
-            <div class="product-card">
-                <div class="badge">Sale</div>
-                <div class="product-image-container">
-                    <img src="{{ asset('img/product_earbuds_1775705367703.png') }}" class="product-image" alt="Sonic True Wireless Earbuds">
-                </div>
-                <div class="product-info">
-                    <div class="product-category">Audio</div>
-                    <div class="product-title">Sonic Air Stealth Earbuds</div>
-                    <div class="product-price">
-                        $159.00
-                        <button class="add-to-cart">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="{{ asset('img/product_vr_1775705385216.png') }}" class="product-image" alt="Vision VR Infinity">
-                </div>
-                <div class="product-info">
-                    <div class="product-category">Gaming</div>
-                    <div class="product-title">Vision VR Infinity Headset</div>
-                    <div class="product-price">
-                        $599.00
-                        <button class="add-to-cart">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product-card">
-                <div class="product-image-container">
-                    <img src="{{ asset('img/product_keyboard_1775705401877.png') }}" class="product-image" alt="Mech Pro Keychron">
-                </div>
-                <div class="product-info">
-                    <div class="product-category">Accessories</div>
-                    <div class="product-title">MechPro Carbon RGB Keyboard</div>
-                    <div class="product-price">
-                        $225.00
-                        <button class="add-to-cart">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+            @endforeach
         </div>
     </section>
 
@@ -567,30 +514,22 @@
             <p>Find exactly what you're looking for in our specialized tech departments.</p>
         </div>
         <div class="category-grid">
+            @php
+                $categoryIcons = [
+                    'wearables' => '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path></svg>',
+                    'audio' => '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>',
+                    'gaming' => '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 12h4"></path><path d="M8 10v4"></path><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line></svg>',
+                    'accessories' => '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="7"></rect><path d="M12 6v4"></path></svg>',
+                ];
+            @endphp
+            @foreach($categories as $category)
             <div class="category-card">
                 <div class="category-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"></circle><polyline points="12 9 12 12 13.5 13.5"></polyline><path d="M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7l.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"></path></svg>
+                    {!! $categoryIcons[$category->slug] ?? '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>' !!}
                 </div>
-                <h3>Wearables</h3>
+                <h3>{{ $category->name }}</h3>
             </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
-                </div>
-                <h3>Audio</h3>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 12h4"></path><path d="M8 10v4"></path><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line></svg>
-                </div>
-                <h3>Gaming</h3>
-            </div>
-            <div class="category-card">
-                <div class="category-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="7"></rect><path d="M12 6v4"></path></svg>
-                </div>
-                <h3>Accessories</h3>
-            </div>
+            @endforeach
         </div>
     </section>
 
@@ -602,7 +541,7 @@
             <a href="#categories" class="btn-primary" style="margin-top: 1rem; display: inline-block;">View Categories</a>
         </div>
         <div class="about-image">
-            <img src="{{ asset('img/hero_background_1775705335157.png') }}" alt="About NexTech" style="object-fit: cover; height: 100%;">
+            <img src="{{ asset('img/hero_v2_1775707023463.png') }}" alt="About NexTech" style="object-fit: cover; height: 100%;">
         </div>
     </section>
 
